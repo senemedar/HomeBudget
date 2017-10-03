@@ -1,0 +1,94 @@
+input, select {
+    position: relative;
+    top: 2px;
+    font: 16px "Josefin Sans";
+    height: 24px;
+	border: none;
+	border-bottom: 1px solid gray;
+}
+
+input:invalid {
+	background-color: #FDD;
+}
+
+input:valid {
+	background-color: #DFD;
+}
+
+select:hover, input:not([type="checkbox"]):not([type="radio"]):not([disabled]):hover {
+	box-shadow: 0px 0px 2px blue;
+}
+
+td#who {
+    width: 150px;
+}
+
+td {
+	padding: 3px;
+}
+
+td span {
+	font-size: 12px;
+	font-weight: bold;
+}
+
+p#required {
+	background-color: #FDD;
+	text-align: center;
+	padding: 4px;
+}
+
+div.flex-container {
+    display: flex;
+}
+
+div.left {
+    width: 250px;
+	padding-top: 4px;
+}
+
+div.right {
+    width: 70%;
+}
+
+div.floating {
+	position: relative;
+	top: -100px;
+	right: -650px;
+}
+
+div button {
+	width: 85px;
+	height: 85px;
+	margin-left: 10px;
+	border: 1px solid gray;
+	border-radius: 10px;
+	box-shadow: 1px 1px 3px gray;
+	background-color: aliceblue;
+	font: 16px "Josefin Sans";
+}
+
+div button:focus {
+	outline: none;
+}
+
+div button:hover {
+	background-color: #DFD;
+}
+
+div button:active {
+	border: 1px solid gray;
+	border-radius: 10px;
+	box-shadow: none;
+	transform: translate(1px, 1px);
+}
+
+.disabled {
+	color: gray;
+}
+
+.down {
+    position: relative;
+    top: 3px;
+    font-size: 1em;
+}

@@ -1,0 +1,122 @@
+<?php
+    session_start();    // start the session
+    require 'engine/functions.php';
+    $data = data();
+    
+    // ********* fetching the data from dzatabase:
+//    $sql = "SELECT * FROM funds";
+//    $result = dbQuery("budgetRodzinny", $sql);
+//    $resultTable = pg_fetch_all($result);
+
+?>
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" 
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+
+<head>
+    <title>Budżet Rodzinny</title>
+    <link href="https://fonts.googleapis.com/css?family=Indie+Flower|Lato&amp;subset=latin-ext" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Dancing+Script|Josefin+Sans:400,400i|Princess+Sofia" rel="stylesheet">
+<!--    <link type="text/css" href="style/main_style.css" rel="stylesheet" />-->
+    <link type="text/css" href="style/index.css" rel="stylesheet" />
+    <link type="text/css" href="style/add_item.css" rel="stylesheet" />
+    <script type="text/javascript" src="http://code.jquery.com/jquery-1.8.3.min.js"></script>
+    <script>
+        
+        function toggleSize(el) {
+            size = $(el).width();
+//            alert (el + " : " + size);
+            folded_size = 75;
+            unfolded_size = 1450;
+            switch (el) {
+                case "#income":
+                    $("#income").width(unfolded_size);
+                    $("#outcome").width(folded_size);
+                    $("#calendar").width(folded_size);
+                    break;
+                
+                case "#outcome":
+                    $("#income").width(folded_size);
+                    $("#outcome").width(unfolded_size);
+                    $("#calendar").width(folded_size);
+                    break;
+                case "#calendar":
+                    $("#income").width(folded_size);
+                    $("#outcome").width(folded_size);
+                    $("#calendar").width(unfolded_size);
+                    break;
+        }
+//            if (size == folded_size) {
+//            } else if (el == "#outcome" && size == min_size) {
+//                $("#income").width(min_size);
+//                $("#outcome").width(max_size);
+//            }
+        }
+//                      var cell = document.createElement("td");
+//                      var cellText = document.createTextNode("cell in row "+i+", column "+j);
+//                      cell.appendChild(cellText);
+//                      row.appendChild(cell);
+
+//                var element = document.getElementById("div1");
+//                element.appendChild(para);
+            
+        function hidePaid() {
+            if (!$("#showPaid").prop("checked")) {
+				$("tr.paid").addClass("hidePaid");
+//                $("tr.paid").removeClass("paid");
+            } else {
+                $("tr.paid").removeClass("hidePaid");
+//                $("tr.paid").addClass("paid");
+            }
+        }
+        
+function animateMenu(x) {
+    x.classList.toggle("change");
+	if (document.getElementById("sidenav").style.width == "") {
+		document.getElementById("sidenav").style.width = "200px";
+		moveMenuButton(200);
+	} else {
+		document.getElementById("sidenav").style.width = "";
+		moveMenuButton(-25);
+	}
+}
+
+    </script>
+</head>
+
+<body>
+    <!-- floating buttons -->
+    <div id="container">        
+
+        <h1>Budżet Rodzinny!</h1>
+        <p class="text-right">
+            Dzisiaj jest: <?= $data['dzienTygodnia'] . ', ' . $data['dzien'] . ' ' . $data['miesiac']; ?><br><br>
+            Rozliczenie za okres: <span class="accent">24 <?= $data['okres']['od_miesiac'] . " " . $data['okres']['od_rok']; ?></span> do <span class="accent">23 <?= $data['okres']['do_miesiac'] . " " . $data['okres']['do_rok']; ?></span>
+        </p>
+        <button id="main_nextItem" onclick="window.location.href='/html/add_item.html'">Dodaj następną pozycję</button>    
+    </div>
+    <div class="flex-container">
+        <div class="income" id="income" onclick="toggleSize('#income')">
+            <h2>Przychody:</h2>
+            <table id="income_table">
+                <? include 'engine/income.php' ?>
+            </table>
+        </div>
+        <div class="outcome" id="outcome" onclick="toggleSize('#outcome')">
+            <h2>Wydatki:</h2>
+            <input name="showPaid" id="showPaid" onclick="hidePaid()" type="checkbox" checked >Pokaż już zapłacone
+            <table id="outcome_table">
+                <? include 'engine/outcome.php' ?>
+            </table>
+        </div>
+        <div class="calendar" id="calendar" onclick="toggleSize('#calendar')">
+            <h2>Rozliczenie kalendarzowe:</h2>
+<!--            <table id="calendar_table">-->
+                <? include 'engine/calendar.php' ?>
+<!--            </table>-->
+        </div>
+    </div>
+</body>
+
+</html>

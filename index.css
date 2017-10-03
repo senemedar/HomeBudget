@@ -1,0 +1,191 @@
+body {
+    background-color: #ddf;
+    background-image: url("/images/bacground.png");
+    color: black;
+    font-family: Lato;
+    font-size: 18px;
+}
+
+div#container {
+    width: 1000px;
+    padding: 5px;
+    margin: auto;
+    border-radius: 5px;
+/*
+    background-image: url("/images/line_nova.png");
+    background-position: center;
+*/
+}
+
+span.accent {
+    color: darkorange;
+    background-color: rgba(255, 255, 255, 0.3);
+}
+
+.text-right {
+    text-align: right;
+}
+aside {
+    position: relative;
+}
+
+h1 {
+    font-family: Dancing Script;
+    font-size: 40px;
+    border-bottom: 2px solid forestgreen;
+    text-align: center;
+    padding-bottom: 5px;
+    color: white;
+    text-shadow: 2px 2px 3px gray, 0 0 25px green, 0 0 5px forestgreen;
+    box-shadow: 0 5px 5px -3px gray;
+}
+
+h2 {
+    padding-left: 50px;
+	font-family: "Josefin Sans";
+/*    background-color: rgba(255, 255, 255, 0.5);*/
+    color: black;
+	font-weight: normal;
+}
+
+h3 {
+/*    text-align: center;*/
+    padding-left: 50px;
+	font-family: "Josefin Sans";
+    background-color: #DDF;
+	font-weight: normal;
+}
+
+table, td, th {
+    padding: 5px;
+}
+
+/*
+table {
+    width: 100%;
+}
+*/
+
+tr#header {
+    font-family: "Josefin Sans";
+    background-color: rgba(255, 255, 255, 0.5);
+    border-bottom: 1px solid black;
+}
+
+tr#income_footer {
+    font-family: "Josefin Sans";
+    background-color: rgba(255, 255, 0, 0.5);
+    border-top: 1px solid black;
+}
+
+tr#outcome_footer {
+    font-family: "Josefin Sans";
+    background-color: rgba(255, 0, 0, 0.6);
+    border-top: 1px solid black;
+    font-size: 1em;
+}
+
+#sidenav {
+    height: 100%;
+    width: 200;
+    position: fixed;
+    z-index: 1;
+    top: 0;
+    left: 100;
+    background-color: #111;
+    overflow-x: hidden;
+    transition: 0.5s;
+    padding-top: 60px;
+}
+div.flex-container {
+    width: 1550px;
+    display: flex;
+    margin: auto;
+}
+
+div.income {
+    width: 75px;
+    transition-duration: 1s;
+    margin: 5px;
+    padding: 5px;
+    white-space: nowrap;
+    overflow-x: hidden;
+    background-color: rgba(255, 255, 0, 0.2);
+    border: 1px solid yellow;
+}
+
+div.outcome {
+    width: 1450px;
+    transition-duration: 1s;
+    margin: 5px;
+    padding: 5px;
+    white-space: nowrap;
+    overflow-x: hidden;
+    border-radius: 5px;
+    background-color: rgba(255, 0, 0, 0.2);
+    border: 1px solid red;
+    border-radius: 5px;
+    border-left: 34px solid #369;
+}
+
+div.calendar {
+    width: 75px;
+    transition-duration: 1s;
+    margin: 5px;
+    padding: 5px;
+    white-space: nowrap;
+    overflow-x: hidden;
+    border-radius: 5px;
+    background-color: rgba(255, 0, 0, 0.2);
+    border: 1px solid red;
+    border-radius: 5px;
+}
+
+
+
+#outcome_table, #outcome_table td, #outcome_table th,
+#income_table, #income_table td, #income_table th {
+    border-left: 1px solid black;
+    border-right: 1px solid black;
+    border-collapse: collapse;
+}
+
+#outcome_table {
+    transition-duration: 1s;
+}
+table#income_table tr#body:hover {
+    background-color: yellow;
+}
+
+table#outcome_table tr#body:hover {
+    background-color: tomato;
+}
+
+#income_table {
+    width: 1435px;
+}
+
+#outcome_table {
+    width: 1435px;
+    color: darkred;
+}
+
+.paid {
+        color: black;
+}
+
+tr.hidePaid {
+    display: none;
+}
+
+input[type=checkbox] {
+    width: 18px;
+    height: 18px;
+    margin-bottom: 10px;
+}
+
+button#main_nextItem {
+	position: absolute;
+	top: 110px;
+	left: 450px;
+}

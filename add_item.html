@@ -1,0 +1,151 @@
+<?php
+    session_start();    // start the session
+    require '../engine/functions.php';
+    $data = data();
+?>
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" 
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+
+<head>
+    <title>Budżet Rodzinny</title>
+    <link href="https://fonts.googleapis.com/css?family=Indie+Flower|Lato&amp;subset=latin-ext" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Dancing+Script|Josefin+Sans:400,400i|Princess+Sofia" rel="stylesheet">
+    <link type="text/css" href="/style/main_style.css" rel="stylesheet" />
+    <link type="text/css" href="/style/add_item.css" rel="stylesheet" />
+    <script type="text/javascript" src="http://code.jquery.com/jquery-1.8.3.min.js"></script>
+
+<script>
+    function changeSource() {
+        if (document.addPosition.direction.value == "outcome") {
+            document.getElementById("who").innerHTML = "Odbiorca:";
+			$("#source").attr("placeholder","np. British Gas");
+        } else {
+            document.getElementById("who").innerHTML = "Źródło:";
+			$("#source").attr("placeholder","np. Wypłata Michała");
+        }
+    }
+	
+	function toggleLastPayment() {
+		if ($("#lastPayment").prop("disabled")) {
+			$("#lastPayment").prop("disabled", false);
+			$("#lastPaymentText").toggleClass("disabled");
+			//document.getElementById("lastPaymentText").style.color = "black";
+		} else {
+			$("#lastPayment").prop("disabled", true);
+			//document.getElementById("lastPaymentText").style.color = "gray";
+			$("#lastPaymentText").toggleClass("disabled");
+		}
+	}
+	
+	function toggleAleadyPaid() {
+		if (document.addPosition.period.value == "4-weekly" || document.addPosition.period.value == "weekly") {
+//			if ($("#alreadyPaid").prop("checked")) {
+//				toggleLastPayment();
+//				$("#alreadyPaid").prop("checked", false);
+//			}
+			$("#paymentDay").prop("disabled", true);
+			$("#lastPayment").prop("disabled", false);
+			document.getElementById("paymentDayText").style.color = "gray";
+			document.getElementById("lastPaymentText").style.color = "black";
+		} else {
+			$("#paymentDay").prop("disabled", false);
+			$("#lastPayment").prop("disabled", true);
+			document.getElementById("paymentDayText").style.color = "black";
+			document.getElementById("lastPaymentText").style.color = "gray";
+		}
+        
+        if (document.addPosition.period.value == "monthly") {
+            document.getElementById("paymentDayText1").innerHTML = " każdego miesiąca ";
+            } else {
+            document.getElementById("paymentDayText1").innerHTML = "";
+                
+            }
+	}
+	
+	function validate(element) {
+		if (element.checkValidity()) {
+			document.getElementById(element.id + "1").innerHTML = "&#10003";
+			document.getElementById(element.id + "1").style.color = "green";
+		} else {
+			document.getElementById(element.id + "1").innerHTML = "&#10007";
+			document.getElementById(element.id + "1").style.color = "red";
+		}
+	}
+	
+	function resetForm() {
+		$("tr span").html("");
+	}
+	
+	function submitForm() {
+		document.forms["addPosition"].submit();
+	}
+</script>
+</head>
+
+
+
+<body>
+    <div id="container">        
+        <h1>Budżet Rodzinny!</h1>
+        <h2>Dodaj pozycję do budżetu:</h2>
+
+        <form id="addPosition" name="addPosition" action="/engine/add_item.php" method="post">
+            <div class="flex-container">
+                <div class="left">
+                    Rodzaj pozycji:<br>
+                    <input type="radio" name="direction" value="outcome" checked onchange="changeSource()">Opłata lub DirectDebit<br>
+                    <input type="radio" name="direction" value="income" onchange="changeSource()">Wpłata na konto<br>
+<!--					<input id="alreadyPaid" type="checkbox" name="alreadyPaid" onchange="toggleLastPayment()"><span id="alreadyPaidText">Już płacone</span>-->
+					<p id="required">Pola czerwone trzeba koniecznie wypełnić</p>
+                </div>
+                <div class="right">
+                    <table id="positionDetails">
+                        <tr>
+                            <td id="who" class="text-right">Odbiorca:</td><td>
+							<input type="text" id="source" name="source" size="70" placeholder="np. British Gas" onchange="validate(this)" required>
+							<span id="source1"></span></td>
+                        </tr>
+                        <tr>
+                            <td class="text-right">Opis:</td><td>
+                            <input type="text" id="description" name="description" placeholder="Opis pozycji" size="70" onchange="validate(this)">
+							<span id="description1"></span></td>
+                        </tr>
+						<tr>
+                            <td class="text-right">Kwota (£):</td><td><input type="number" id="amount" name="amount" min="0.01" step="0.01" placeholder="1000.99" onchange="validate(this)" required >
+							<span id="amount1"></span></td>
+                        </tr>
+						<tr>
+                            <td class="text-right">Okres rozliczania:</td>
+							<td>
+								<select name="period" onchange="toggleAleadyPaid()">
+									<option value="one-off">Jednorazowo</option>
+									<option value="weekly">Co tydzień</option>
+									<option value="4-weekly">Co 4 tygodnie</option>
+									<option value="monthly" selected>Co miesiąc</option>
+								</select>
+							</td>
+                        </tr>
+                        <tr>
+                            <td id="paymentDayText" class="text-right">Data płatności:</td><td><input type="number" min="1" max="31" id="paymentDay" name="paymentDay" onchange="validate(this)" required>
+							<span id="paymentDayText1" class="down"> każdego miesiąca </span><span id="paymentDay1"></span></td>
+                        </tr>
+						<tr>
+                            <td id="lastPaymentText" class="text-right disabled">Ostatnia płatność:</td><td><input type="date" name="lastPayment" id="lastPayment" onchange="validate(this)" disabled required>
+							<span id="lastPayment1"></span></td>
+                        </tr>
+                    </table>
+                </div>	
+            </div>
+			<div class="floating">
+				<button id="submit" action="submit">Dodaj pozycję</button>
+				<button id="reset" type="reset" onclick="resetForm()">Wyzeruj formularz</button>
+				<button id="back" style="position: relative; top: -8px;" onclick="window.location.href='/index.html'">Wróć na stronę główną</button>
+			</div>
+        </form>
+
+    </div>
+</body>
+
+</html>
