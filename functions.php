@@ -34,7 +34,7 @@ function dbQuery ($database, $query) {
 	$conn_string = "host=localhost ";
 	$conn_string .= "port=5432 ";
 	$conn_string .= "user=postgres ";
-	$conn_string .= "password=31222646 ";
+	$conn_string .= "password=###### ";
 	$conn_string .= "dbname=".$database;
 	
 	//	Create and check the connection
